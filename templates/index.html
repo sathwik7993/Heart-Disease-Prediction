@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Predictor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <h1>Heart Disease Predictor</h1>
+      </div>
+      <p class="tagline">Get an assessment of your cardiac health based on clinical parameters</p>
+    </header>
+
+    <main>
+      <section class="predictor-card">
+        <h2>Enter Your Health Data</h2>
+        <form id="predict-form">
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="age">Age</label>
+              <div class="input-container">
+                <input type="number" id="age" name="age" min="1" max="120" placeholder="e.g., 63" required>
+                <span class="tooltip">Your age in years</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="sex">Sex</label>
+              <div class="input-container">
+                <select id="sex" name="sex" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
+                </select>
+                <span class="tooltip">1 = Male, 0 = Female</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="cp">Chest Pain Type</label>
+              <div class="input-container">
+                <select id="cp" name="cp" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="0">Typical Angina</option>
+                  <option value="1">Atypical Angina</option>
+                  <option value="2">Non-anginal Pain</option>
+                  <option value="3">Asymptomatic</option>
+                </select>
+                <span class="tooltip">Type of chest pain experienced</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="trestbps">Resting BP</label>
+              <div class="input-container">
+                <input type="number" id="trestbps" name="trestbps" min="80" max="250" placeholder="e.g., 145" required>
+                <span class="unit">mm Hg</span>
+                <span class="tooltip">Resting blood pressure in mm Hg</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="chol">Cholesterol</label>
+              <div class="input-container">
+                <input type="number" id="chol" name="chol" min="100" max="600" placeholder="e.g., 233" required>
+                <span class="unit">mg/dl</span>
+                <span class="tooltip">Serum cholesterol in mg/dl</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="fbs">Fasting Blood Sugar</label>
+              <div class="input-container">
+                <select id="fbs" name="fbs" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="1">Yes (>120 mg/dl)</option>
+                  <option value="0">No (≤120 mg/dl)</option>
+                </select>
+                <span class="tooltip">Fasting blood sugar > 120 mg/dl</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="restecg">Resting ECG</label>
+              <div class="input-container">
+                <select id="restecg" name="restecg" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="0">Normal</option>
+                  <option value="1">ST-T Wave Abnormality</option>
+                  <option value="2">Left Ventricular Hypertrophy</option>
+                </select>
+                <span class="tooltip">Resting electrocardiogram results</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="thalach">Max Heart Rate</label>
+              <div class="input-container">
+                <input type="number" id="thalach" name="thalach" min="60" max="220" placeholder="e.g., 150" required>
+                <span class="unit">bpm</span>
+                <span class="tooltip">Maximum heart rate achieved</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="exang">Exercise Angina</label>
+              <div class="input-container">
+                <select id="exang" name="exang" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+                <span class="tooltip">Exercise induced angina (1 = yes, 0 = no)</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="oldpeak">ST Depression</label>
+              <div class="input-container">
+                <input type="number" id="oldpeak" name="oldpeak" step="0.1" min="0" max="10" placeholder="e.g., 2.3" required>
+                <span class="tooltip">ST depression induced by exercise relative to rest</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="slope">Slope</label>
+              <div class="input-container">
+                <select id="slope" name="slope" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="0">Upsloping</option>
+                  <option value="1">Flat</option>
+                  <option value="2">Downsloping</option>
+                </select>
+                <span class="tooltip">Slope of peak exercise ST segment</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="ca">Major Vessels</label>
+              <div class="input-container">
+                <select id="ca" name="ca" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <span class="tooltip">Number of major vessels colored by fluoroscopy (0-4)</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="thal">Thalassemia</label>
+              <div class="input-container">
+                <select id="thal" name="thal" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="1">Normal</option>
+                  <option value="2">Fixed Defect</option>
+                  <option value="3">Reversible Defect</option>
+                </select>
+                <span class="tooltip">Thalassemia type</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" id="load-example" class="example-btn">Load Example Data</button>
+            <div class="primary-actions">
+              <button type="reset" class="reset-btn">Reset</button>
+              <button type="submit" class="predict-btn">
+                <span class="btn-text">Predict Risk</span>
+                <span class="spinner hidden"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section id="result" class="result-card hidden">
+        <div class="result-header">
+          <h2>Prediction Result</h2>
+          <button id="close-result" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="result-content">
+          <!-- Results will be injected here -->
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>This tool is for educational purposes only. Always consult with healthcare professionals for medical advice.</p>
+      <p>© 2025 Heart Disease Risk Predictor</p>
+    </footer>
+  </div>
+
+  <div id="info-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Understanding the Heart Disease Prediction</h2>
+        <button id="close-modal" class="close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>This predictor uses a machine learning model trained on cardiac health data to estimate your risk of heart disease based on several clinical parameters:</p>
+        
+        <ul>
+          <li><strong>Age</strong>: Age in years</li>
+          <li><strong>Sex</strong>: 1 = Male, 0 = Female</li>
+          <li><strong>Chest Pain Type (cp)</strong>: Type of chest pain (0-3)</li>
+          <li><strong>Resting Blood Pressure (trestbps)</strong>: Resting blood pressure in mm Hg</li>
+          <li><strong>Cholesterol (chol)</strong>: Serum cholesterol in mg/dl</li>
+          <li><strong>Fasting Blood Sugar (fbs)</strong>: Fasting blood sugar > 120 mg/dl (1 = true; 0 = false)</li>
+          <li><strong>Resting ECG (restecg)</strong>: Resting electrocardiogram results (0-2)</li>
+          <li><strong>Max Heart Rate (thalach)</strong>: Maximum heart rate achieved</li>
+          <li><strong>Exercise Angina (exang)</strong>: Exercise induced angina (1 = yes; 0 = no)</li>
+          <li><strong>ST Depression (oldpeak)</strong>: ST depression induced by exercise relative to rest</li>
+          <li><strong>Slope</strong>: Slope of the peak exercise ST segment (0-2)</li>
+          <li><strong>Major Vessels (ca)</strong>: Number of major vessels colored by fluoroscopy (0-4)</li>
+          <li><strong>Thalassemia (thal)</strong>: Thalassemia type (1-3)</li>
+        </ul>
+        
+        <h3>Important Notice</h3>
+        <p>This tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider about your health concerns.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
